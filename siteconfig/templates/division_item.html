@@ -1,0 +1,32 @@
+{% load siteconfigtags %}
+{% load cache %}
+
+{% cache division.cache_period division_cache division.name request.path %}
+
+{% if render_division %}
+
+    {% if not division.site_config.suppress_div %}
+        {% if  division.use_span %}
+            <span id="{{division.name}}">
+        {% else %}
+            <div id="{{division.name}}">
+        {% endif %}
+    {% endif %}
+   
+    {% include "division_item_snippet.html" %}
+    
+    {% for child in division.get_children %}
+        {% show_division child %}
+    {% endfor %}
+
+    {% if not division.site_config.suppress_div %}
+        {% if  division.use_span %}
+            </span>
+        {% else %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+
+{% endcache %}

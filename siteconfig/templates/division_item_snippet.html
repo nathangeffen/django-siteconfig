@@ -1,0 +1,9 @@
+{% load siteconfigtags %}
+
+{% template_string division.pre_template_HTML %}
+
+{% if division.template_filename %}
+    {% include division.template_filename %}
+{% endif %}
+
+{% template_string division.post_template_HTML %}
